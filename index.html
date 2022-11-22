@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Место</title>
+</head>
+
+<body class="page">
+
+    <header class="header">
+        <img src="./images/Vector.png" alt="Лого" class="header__logo">
+    </header>
+
+    <section class="profile">
+      <img class="profile__avatar" src="./images/Jak.png" alt="Жак-Ив Кусто"></img>
+      <div class="profile__user">
+        <div class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+        <button class="profile__button" type="button"></button>
+      </div>
+      <button class="profile__plus"></button>
+    </section>
+
+    <main>
+        <ul class="elements">
+            <li class="elements__card">
+                <img class="elements__img" src="./images/karachaevsk.jpg" alt="Карачаевск" />
+                <div class="elements__container">
+                    <h2 class="elements__title">Карачаевск</h2>
+                    <img class="elements__like" src="./images/like.png"></img>
+                </div>
+            </li>
+            <li class="elements__card">
+                <img class="elements__img" src="./images/elbrus.jpg" alt="Эльбрус" />
+                <div class="elements__container">
+                    <h2 class="elements__title">Гора Эльбрус</h2>
+                    <img class="elements__like" src="./images/like.png"></img>
+                </div>
+            </li>
+            <li class="elements__card">
+                <img class="elements__img" src="./images/dombai.jpg" alt="Домбай" />
+                <div class="elements__container">
+                    <h2 class="elements__title">Домбай</h2>
+                    <img class="elements__like" src="./images/like.png"></img>
+                </div>
+            </li>
+            <li class="elements__card">
+                <img class="elements__img" src="./images/elbrus.jpg" alt="Эльбрус" />
+                <div class="elements__container">
+                    <h2 class="elements__title">Гора Эльбрус</h2>
+                    <img class="elements__like" src="./images/like.png"></img>
+                </div>
+            </li>
+            <li class="elements__card">
+                <img class="elements__img" src="./images/dombai.jpg" alt="Домбай" />
+                <div class="elements__container">
+                    <h2 class="elements__title">Домбай</h2>
+                    <img class="elements__like" src="./images/like.png"></img>
+                </div>
+            </li>
+            <li class="elements__card">
+                <img class="elements__img" src="./images/karachaevsk.jpg" alt="Карачаевск" />
+                <div class="elements__container">
+                    <h2 class="elements__title">Карачаево-Ч...</h2>
+                    <img class="elements__like" src="./images/like.png"></img>
+                </div>
+            </li>
+        </ul>
+        
+
+        
+    </main>
+
+    <footer class="footer">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+     </footer>
+     
+    <div class="popup popup_opened">
+        <div class="popup__box">
+            <div class="popup__container">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <img class="popup__close" src="./images/Close-Icon.png" alt="Закрыть"></img>
+                <div class="popup__fields">
+                    <input type="text" class="popup__input" placeholder="Имя">
+                </div>
+                <div class="popup__fields">
+                    <input type="text" class="popup__input" placeholder="О себе">
+                </div>
+                <button class="popup__button">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
