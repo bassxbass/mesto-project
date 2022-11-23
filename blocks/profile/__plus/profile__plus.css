@@ -13,6 +13,12 @@
     margin-left: auto; 
 }
 
+.profile__plus:hover {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+
 @media (max-width: 550px) {
     .profile__plus {
         background-size: 16px 16px;

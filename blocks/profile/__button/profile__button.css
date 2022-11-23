@@ -12,6 +12,12 @@
     margin-top: 14px;
 }
 
+.profile__button:hover {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+
 @media (max-width: 550px) {
     .profile__button {
         background-size: 7.5px 7.5px;
