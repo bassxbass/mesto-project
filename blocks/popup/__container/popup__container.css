@@ -3,7 +3,6 @@
     background-color: #fff;
     color: #000;
     max-width: 430px;
-    max-height: 330px;
     padding: 34px 36px 37px 36px;
     display: flex;
     flex-direction: column;
@@ -18,7 +17,6 @@
     .popup__container {
         margin: 0 auto;
         max-width: 282px;
-        max-height: 322px;
         padding: 25px 22px 25px 22px;
     }
 }
