@@ -16,6 +16,7 @@
     </header>
 
     <main>
+
         <section class="profile">
             <img class="profile__avatar" src="./images/jak.png" alt="Жак-Ив Кусто">
             <div class="profile__user">
@@ -74,7 +75,6 @@
             </ul>
         </section>
     
-    
     </main>
 
     <footer class="footer">
@@ -85,9 +85,11 @@
         <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <button class="popup__close" type="button"></button>
-                <input type="text" class="popup__input" placeholder="Имя">
-                <input type="text" class="popup__input" placeholder="О себе">
-                <button class="popup__button" type="button">Сохранить</button>
+                <form name="form">
+                  <input type="text" class="popup__input" placeholder="Имя" name="name">
+                  <input type="text" class="popup__input" placeholder="О себе" name="about">
+                 </form>
+                <button class="popup__button" type="submit">Сохранить</button>
         </div>
     </div>
 </body>

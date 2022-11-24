@@ -13,11 +13,12 @@
     text-align: center;
     margin: 48px 0 0 0;
     padding: 0;
+    border: 0;
 }
 
 .popup__button:hover {
     opacity: 0.8;
-    transition: opacity 0.3s;
+    cursor: pointer;
 }
 
 
@@ -26,10 +27,7 @@
     .popup__button {
         width: 238px;
         height: 46px;
-        font-style: normal;
-        font-weight: 400;
         font-size: 14px;
         line-height: 17px;
-        text-align: center;
     }
 }
