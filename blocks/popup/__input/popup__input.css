@@ -19,5 +19,7 @@
 @media all and (max-width: 460px) {
     .popup__input {
       min-width: 238px;
+      margin: 30px auto 0;
+      padding: 0 0 13px 0;
     }
 }
