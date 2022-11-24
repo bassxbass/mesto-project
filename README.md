@@ -18,5 +18,5 @@
 
 ##Репозиторий
 
-*https://bassxbass.github.io/mesto-project//
+*https://bassxbass.github.io/mesto-project/
 
