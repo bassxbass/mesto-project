@@ -2,23 +2,21 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
     <title>Место</title>
 </head>
 
 <body class="page">
-
     <header class="header">
-        <img src="./images/logo.svg" alt="Лого" class="header__logo">
+        <img src="./images/logo.svg" alt="Лого" class="header__logo" />
     </header>
 
     <main>
-
         <section class="profile">
-            <img class="profile__avatar" src="./images/jak-iv.png" alt="Жак-Ив Кусто">
+            <img class="profile__avatar" src="./images/jak-iv.png" alt="Жак-Ив Кусто" />
             <div class="profile__user">
                 <div class="profile__info">
                     <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -74,25 +72,49 @@
                 </li>
             </ul>
         </section>
-    
     </main>
 
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-     </footer>
-     
-    <div class="popup popup_opened">
+    </footer>
+
+    <div class="popup popup_type_edit">
         <div class="popup__container">
+            <button class="popup__close" type="button"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form" name="form-edit">
-                <input type="text" class="popup__input" placeholder="Имя" name="name">
-                <input type="text" class="popup__input" placeholder="О себе" name="about">
+            <form class="popup__form" name="edit-form">
+                <input type="text" class="popup__input" placeholder="Имя" name="name" />
+                <span id="name-error" class="popup__error"></span>
+                <input type="text" class="popup__input" placeholder="О себе" name="about" />
+                <span id="profession-error" class="popup__error"></span>
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
-            <button class="popup__close" type="button"></button>
-                
         </div>
     </div>
+
+    <div class="popup popup_type_card">
+        <div class="popup__container">
+            <button type="button" class="popup__close"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form name="edit-form" class="popup__form popup__form_card" novalidate>
+              <input id="card-name" type="text" name="card-name" placeholder="Название места" class="popup__input" >
+              <span id="card-name-error" class="popup__error"></span>
+              <input id="cardUrl" type="url" name="card-url" placeholder="Ссылка на картинку" class="popup__input" >
+              <span id="cardUrl-error" class="popup__error"></span>
+              <button type="submit" class="popup__button">Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup popup_type_image popup_opened">
+        <div class="popup__image-window">
+            <button type="button" class="popup__close"></button>
+            <img class="popup__image-url" src="." alt="">
+            <h2 class="popup__image-name"></h2>
+        </div>
+    </div>
+
+    <script src="/scripts/index.js"></script>
 </body>
 
 </html>
