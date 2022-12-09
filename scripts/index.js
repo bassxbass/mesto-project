@@ -50,7 +50,7 @@ const cards = [
   const cardLink = cardPopup.querySelector('#link');
   const cardForm = cardPopup.querySelector('.form');
   
-  //Функции начало
+  // Функции начало
   
   function openPopup(popup) {
     popup.classList.add('popup_opened');
