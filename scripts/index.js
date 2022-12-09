@@ -25,7 +25,7 @@ const cards = [
       }
 ];
   
-  // Edit popup
+  // Edit popup popup_type_edit
   const profilePopup = document.querySelector('.popup_type_edit');
   const profileName = document.querySelector('.profile__title');
   const profileDescription = document.querySelector('.profile__subtitle');
