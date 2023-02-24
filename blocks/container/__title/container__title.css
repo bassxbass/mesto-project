@@ -1,0 +1,19 @@
+@media screen and (min-width: 320px) {
+  .container__title {
+    color: #000;
+    font-size: 18px;
+    line-height: 21.78px;
+    font-weight: 900;
+    margin: 25px 0 0;
+    width: 238px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container__title {
+    font-size: 24px;
+    line-height: 29.05px;
+    margin: 34px 0 0;
+    width: 358px;
+  }
+}
