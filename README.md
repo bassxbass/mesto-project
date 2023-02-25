@@ -12,6 +12,9 @@
 * Файловая струтура в соответсвии с БЭМ
 * Figma
 * JavaScript
+* DOM
+* Валидация
+* Сборка Webpack
 
 
 ## Сайт сделан по курсу Яндекс.Практикум "WEB+"
@@ -19,5 +22,5 @@
 
 #Репозиторий
 
-*https://bassxbass.github.io/mesto-project/
+**[https://bassxbass.github.io/mesto-project/](https://bassxbass.github.io/mesto-project/)**
 

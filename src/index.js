@@ -1,0 +1,163 @@
+import "./styles/index.css";
+
+import { handleProfileFormSubmit } from "./components/modal.js";
+import { enableValidation, toggleButtonState } from "./components/validate.js";
+import {
+  handleAddCardFormSubmit,
+  addCard,
+  createCard,
+} from "./components/card.js";
+import { openPopup, closePopup } from "./components/utils.js";
+
+const cards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
+];
+
+export const cardTemplate = document.querySelector(".card__template").content;
+export const cardSection = document.querySelector(".cards");
+
+export const cardOpened = document.querySelector(".popup_type_photo");
+export const cardOpenedImage = cardOpened.querySelector(".card-opened__image");
+export const cardOpenedText = cardOpened.querySelector(".card-opened__name");
+const cardOpenedClose = cardOpened.querySelector(
+  ".container__close-button_type_photo"
+);
+
+const formElementProfile = document.querySelector(".container__form_type_profile");
+export const nameInput = formElementProfile.querySelector(
+  ".container__input_type_name"
+);
+export const jobInput = formElementProfile.querySelector(
+  ".container__input_type_info"
+);
+
+export const profileName = document.querySelector(".profile__name");
+export const profileJob = document.querySelector(".profile__text");
+
+const editButton = document.querySelector(".profile__edit-button");
+export const editPopup = document.querySelector(".popup_type_edit");
+const closeEditButton = document.querySelector(
+  ".container__close-button_type_edit"
+);
+
+const formElementAddCard = document.querySelector(".container__form_type_add");
+export const imageNameInput = formElementAddCard.querySelector(
+  ".container__input_type_name"
+);
+export const linkInput = formElementAddCard.querySelector(
+  ".container__input_type_info"
+);
+
+const addButton = document.querySelector(".profile__add-button");
+export const addPopup = document.querySelector(".popup_type_add");
+const closeAddButton = document.querySelector(".container__close-button_type_add");
+
+//загружаем 6 карточек с фото
+cards.forEach(function (item) {
+  addCard(createCard(item.link, item.name));
+});
+
+//открытие формы для редактирования профиля
+editButton.addEventListener("click", function () {
+  openPopup(editPopup);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+});
+
+//закрытие формы для редактирования профиля - кнопка крест
+closeEditButton.addEventListener("click", function () {
+  closePopup(editPopup);
+});
+
+//закрытие формы для редактирования профиля - клик по оверлею
+editPopup.addEventListener("mousedown", function (evt) {
+  const target = evt.target;
+  if (!target.closest(".container") && !target.closest(".container__form")) {
+    closePopup(editPopup);
+  }
+});
+
+//редактируем профиль
+formElementProfile.addEventListener("submit", handleProfileFormSubmit);
+
+//открытие формы для добавления карточки
+addButton.addEventListener("click", function () {
+  openPopup(addPopup);
+  formElementAddCard.reset();
+
+  const inputListAddPopup = Array.from(
+    addPopup.querySelectorAll(".container__input")
+  );
+  const buttonAddPopup = addPopup.querySelector(".container__save-button");
+
+  toggleButtonState(inputListAddPopup, buttonAddPopup, {
+    formSelector: ".container__form",
+    inputSelector: ".container__input",
+    submitButtonSelector: ".container__save-button",
+    inactiveButtonClass: "container__save-button_inactive",
+    inputErrorClass: "container__input_type_error",
+    errorClass: "container__input-error_active",
+  });
+});
+
+//закрытие формы для добавления карточки - кнопка крест
+closeAddButton.addEventListener("click", function () {
+  closePopup(addPopup);
+});
+
+//закрытие формы для добавления карточки - клик по оверлею
+addPopup.addEventListener("mousedown", function (evt) {
+  const target = evt.target;
+  if (!target.closest(".container") && !target.closest(".container__form")) {
+    closePopup(addPopup);
+  }
+});
+
+//добавление карточки с фото
+formElementAddCard.addEventListener("submit", handleAddCardFormSubmit);
+
+//закрытие карточки с фото кнопка крест
+cardOpenedClose.addEventListener("click", function () {
+  closePopup(cardOpened);
+});
+
+//закрытие карточки с фото клик по оверлею
+cardOpened.addEventListener("mousedown", function (evt) {
+  const target = evt.target;
+  if (!target.closest(".card-opened")) {
+    closePopup(cardOpened);
+  }
+});
+
+//валидация форм
+enableValidation({
+  formSelector: ".container__form",
+  inputSelector: ".container__input",
+  submitButtonSelector: ".container__save-button",
+  inactiveButtonClass: "container__save-button_inactive",
+  inputErrorClass: "container__input_type_error",
+  errorClass: "container__input-error_active",
+});

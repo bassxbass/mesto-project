@@ -1,0 +1,7 @@
+.card-opened {
+  position: relative;
+}
+
+.card-opened:hover {
+  cursor: default;
+}
