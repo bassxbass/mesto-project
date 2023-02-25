@@ -2,9 +2,9 @@
 import {
   cardSection,
   cardTemplate,
-  cardOpenedImage,
-  cardOpenedText,
-  cardOpened,
+  imagePopupImage,
+  imagePopupText,
+  imagePopup,
   addPopup,
   linkInput,
   imageNameInput,
@@ -18,9 +18,9 @@ export function addCard(card) {
 
 export function createCard(link, name) {
   const card = cardTemplate.querySelector(".card").cloneNode(true);
-
-  card.querySelector(".card__image").src = link;
-  card.querySelector(".card__image").alt = name;
+  const cardImage = card.querySelector(".card__image");
+  cardImage.src = link;
+  cardImage.alt = name;
   card.querySelector(".card__name").textContent = name;
 
   card.querySelector(".card__like").addEventListener("click", function (evt) {
@@ -31,11 +31,11 @@ export function createCard(link, name) {
     evt.target.closest(".card").remove();
   });
 
-  card.querySelector(".card__image").addEventListener("click", function () {
-    cardOpenedImage.src = link;
-    cardOpenedImage.alt = name;
-    cardOpenedText.textContent = name;
-    openPopup(cardOpened);
+  cardImage.addEventListener("click", function () {
+    imagePopupImage.src = link;
+    imagePopupImage.alt = name;
+    imagePopupText.textContent = name;
+    openPopup(imagePopup);
   });
   return card;
 }

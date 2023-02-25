@@ -39,14 +39,24 @@ const cards = [
 export const cardTemplate = document.querySelector(".card__template").content;
 export const cardSection = document.querySelector(".cards");
 
-export const cardOpened = document.querySelector(".popup_type_photo");
-export const cardOpenedImage = cardOpened.querySelector(".card-opened__image");
-export const cardOpenedText = cardOpened.querySelector(".card-opened__name");
-const cardOpenedClose = cardOpened.querySelector(
+export const imagePopup = document.querySelector(".popup_type_photo");
+export const imagePopupImage = imagePopup.querySelector(".card-opened__image");
+export const imagePopupText = imagePopup.querySelector(".card-opened__name");
+const imagePopupClose = imagePopup.querySelector(
   ".container__close-button_type_photo"
 );
 
+const fullForm = {
+    formSelector: ".container__form",
+    inputSelector: ".container__input",
+    submitButtonSelector: ".container__save-button",
+    inactiveButtonClass: "container__save-button_inactive",
+    inputErrorClass: "container__input_type_error",
+    errorClass: "container__input-error_active",
+};
+
 const formElementProfile = document.querySelector(".container__form_type_profile");
+
 export const nameInput = formElementProfile.querySelector(
   ".container__input_type_name"
 );
@@ -103,6 +113,7 @@ editPopup.addEventListener("mousedown", function (evt) {
 //редактируем профиль
 formElementProfile.addEventListener("submit", handleProfileFormSubmit);
 
+
 //открытие формы для добавления карточки
 addButton.addEventListener("click", function () {
   openPopup(addPopup);
@@ -113,14 +124,7 @@ addButton.addEventListener("click", function () {
   );
   const buttonAddPopup = addPopup.querySelector(".container__save-button");
 
-  toggleButtonState(inputListAddPopup, buttonAddPopup, {
-    formSelector: ".container__form",
-    inputSelector: ".container__input",
-    submitButtonSelector: ".container__save-button",
-    inactiveButtonClass: "container__save-button_inactive",
-    inputErrorClass: "container__input_type_error",
-    errorClass: "container__input-error_active",
-  });
+  toggleButtonState(inputListAddPopup, buttonAddPopup, fullForm);
 });
 
 //закрытие формы для добавления карточки - кнопка крест
@@ -140,24 +144,17 @@ addPopup.addEventListener("mousedown", function (evt) {
 formElementAddCard.addEventListener("submit", handleAddCardFormSubmit);
 
 //закрытие карточки с фото кнопка крест
-cardOpenedClose.addEventListener("click", function () {
-  closePopup(cardOpened);
+imagePopupClose.addEventListener("click", function () {
+  closePopup(imagePopup);
 });
 
 //закрытие карточки с фото клик по оверлею
-cardOpened.addEventListener("mousedown", function (evt) {
+imagePopup.addEventListener("mousedown", function (evt) {
   const target = evt.target;
   if (!target.closest(".card-opened")) {
-    closePopup(cardOpened);
+    closePopup(imagePopup);
   }
 });
 
 //валидация форм
-enableValidation({
-  formSelector: ".container__form",
-  inputSelector: ".container__input",
-  submitButtonSelector: ".container__save-button",
-  inactiveButtonClass: "container__save-button_inactive",
-  inputErrorClass: "container__input_type_error",
-  errorClass: "container__input-error_active",
-});
+enableValidation(fullForm);
