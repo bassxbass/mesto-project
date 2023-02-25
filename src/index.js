@@ -97,18 +97,30 @@ editButton.addEventListener("click", function () {
   jobInput.value = profileJob.textContent;
 });
 
-//закрытие формы для редактирования профиля - кнопка крест
-closeEditButton.addEventListener("click", function () {
-  closePopup(editPopup);
-});
+// закрытие попапов на крестик
+function сlosePopup(buttonElement, popupElement) {
+  buttonElement.addEventListener("mousedown", function () {
+    closePopup(popupElement);
+  });
+}
 
-//закрытие формы для редактирования профиля - клик по оверлею
-editPopup.addEventListener("mousedown", function (evt) {
-  const target = evt.target;
-  if (!target.closest(".container") && !target.closest(".container__form")) {
-    closePopup(editPopup);
-  }
-});
+сlosePopup(imagePopupClose, imagePopup);
+сlosePopup(closeAddButton, addPopup);
+сlosePopup(closeEditButton, editPopup);
+
+// закрытие попапов на оверлей
+function сlosePopupHandler(popupElement) {
+  popupElement.addEventListener("mousedown", function (evt) {
+    const target = evt.target;
+    if (!target.closest(".container") && !target.closest(".container__form") && !target.closest(".card-opened")) {
+      closePopup(popupElement);
+    }
+  });
+}
+
+сlosePopupHandler(editPopup);
+сlosePopupHandler(addPopup);
+сlosePopupHandler(imagePopup);
 
 //редактируем профиль
 formElementProfile.addEventListener("submit", handleProfileFormSubmit);
@@ -127,34 +139,10 @@ addButton.addEventListener("click", function () {
   toggleButtonState(inputListAddPopup, buttonAddPopup, fullForm);
 });
 
-//закрытие формы для добавления карточки - кнопка крест
-closeAddButton.addEventListener("click", function () {
-  closePopup(addPopup);
-});
-
-//закрытие формы для добавления карточки - клик по оверлею
-addPopup.addEventListener("mousedown", function (evt) {
-  const target = evt.target;
-  if (!target.closest(".container") && !target.closest(".container__form")) {
-    closePopup(addPopup);
-  }
-});
 
 //добавление карточки с фото
 formElementAddCard.addEventListener("submit", handleAddCardFormSubmit);
 
-//закрытие карточки с фото кнопка крест
-imagePopupClose.addEventListener("click", function () {
-  closePopup(imagePopup);
-});
-
-//закрытие карточки с фото клик по оверлею
-imagePopup.addEventListener("mousedown", function (evt) {
-  const target = evt.target;
-  if (!target.closest(".card-opened")) {
-    closePopup(imagePopup);
-  }
-});
 
 //валидация форм
 enableValidation(fullForm);
