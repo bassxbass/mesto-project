@@ -18,7 +18,6 @@ function isValid(formElement, inputElement, selectors) {
     showInputError(
       formElement,
       inputElement,
-
       inputElement.dataset.errorMessage,
       inputElement.validationMessage,
       selectors

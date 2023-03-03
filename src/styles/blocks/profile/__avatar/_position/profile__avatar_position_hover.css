@@ -1,0 +1,24 @@
+@media screen and (min-width: 320px) {
+  .profile__avatar_position_hover {
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 60px;
+    left: calc((100% - 120px) / 2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .profile__avatar:hover + .profile__avatar_position_hover {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 880px) {
+  .profile__avatar_position_hover {
+    left: 0;
+  }
+}
