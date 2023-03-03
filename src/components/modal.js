@@ -13,15 +13,16 @@ import {
 } from "../index.js";
 import { closePopup } from "./utils.js";
 import { updateProfileInfo, updateProfilePhoto } from "./api.js";
+import { data } from "autoprefixer";
 
 export function handleProfileFormSubmit(evt) {
   saveProfile.textContent = "Сохранение...";
   evt.preventDefault();
 
-  updateProfileInfo(nameInput.value, jobInput.value)
+  updateProfileInfo(data.name, data.job)
     .then(() => {
-      profileName.textContent = nameInput.value;
-      profileJob.textContent = jobInput.value;
+      profileName.textContent = data.name;
+      profileJob.textContent = data.job;
       closePopup(editPopup);
     })
     .catch((err) => {
@@ -36,10 +37,9 @@ export function handleProfilePhotoFormSubmit(evt) {
   savePhoto.textContent = "Сохранение...";
   evt.preventDefault();
 
-  updateProfilePhoto(photoInput.value)
+  updateProfilePhoto(data)
     .then(() => {
-      profileImage.src = photoInput.value;
-      profileImage.alt = profileName;
+      profileImage.src = data.avatar;
       closePopup(photoEditPopup);
     })
     .catch((err) => {

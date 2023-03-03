@@ -113,19 +113,13 @@ editButton.addEventListener("click", function () {
 });
 
 // закрытие попапов на крестик
-function сlosePopup(buttonElement, popupElement) {
-  buttonElement.addEventListener("mousedown", function () {
-    closePopup(popupElement);
-  });
-}
-сlosePopup(imagePopupClose, imagePopup);
-сlosePopup(closeAddButton, addPopup);
-сlosePopup(closeEditButton, editPopup);
-сlosePopup(photoEditCloseButton, photoEditPopup);
-
+closeEditButton.addEventListener("click", () => closePopup(editPopup));
+closeAddButton.addEventListener("click", () => closePopup(addPopup));
+imagePopupClose.addEventListener("click", () => closePopup(imagePopup));
+photoEditCloseButton.addEventListener("click", () => closePopup(photoEditPopup));
 
 // закрытие попапов на оверлей
-function сlosePopupHandler(popupElement) {
+function closePopupHandler(popupElement) {
   popupElement.addEventListener("mousedown", function (evt) {
     const target = evt.target;
     if (!target.closest(".container") && !target.closest(".container__form") && !target.closest(".card-opened")) {
@@ -133,10 +127,10 @@ function сlosePopupHandler(popupElement) {
     }
   });
 }
-сlosePopupHandler(editPopup);
-сlosePopupHandler(addPopup);
-сlosePopupHandler(imagePopup);
-сlosePopupHandler(photoEditPopup);
+closePopupHandler(editPopup);
+closePopupHandler(addPopup);
+closePopupHandler(imagePopup);
+closePopupHandler(photoEditPopup);
 
 
 //редактируем профиль
