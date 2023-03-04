@@ -22,7 +22,7 @@ export function handleProfileFormSubmit(evt) {
   updateProfileInfo(nameInput.value, jobInput.value)
     .then((res) => {
       profileName.textContent = res.name;
-      profileJob.textContent = res.job;
+      profileJob.textContent = res.about;
       closePopup(editPopup);
     })
     .catch((err) => {
