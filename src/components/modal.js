@@ -20,7 +20,7 @@ export function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   updateProfileInfo(data.name, data.job)
-    .then(() => {
+    .then(data => {
       profileName.textContent = data.name;
       profileJob.textContent = data.job;
       closePopup(editPopup);
@@ -38,7 +38,7 @@ export function handleProfilePhotoFormSubmit(evt) {
   evt.preventDefault();
 
   updateProfilePhoto(data)
-    .then(() => {
+    .then(data => {
       profileImage.src = data.avatar;
       closePopup(photoEditPopup);
     })
