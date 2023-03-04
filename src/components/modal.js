@@ -19,10 +19,10 @@ export function handleProfileFormSubmit(evt) {
   saveProfile.textContent = "Сохранение...";
   evt.preventDefault();
 
-  updateProfileInfo(data.name, data.job)
-    .then(data => {
-      profileName.textContent = data.name;
-      profileJob.textContent = data.job;
+  updateProfileInfo(nameInput.value, jobInput.value)
+    .then((res) => {
+      profileName.textContent = res.name;
+      profileJob.textContent = res.job;
       closePopup(editPopup);
     })
     .catch((err) => {
@@ -37,9 +37,9 @@ export function handleProfilePhotoFormSubmit(evt) {
   savePhoto.textContent = "Сохранение...";
   evt.preventDefault();
 
-  updateProfilePhoto(data)
-    .then(data => {
-      profileImage.src = data.avatar;
+  updateProfilePhoto(photoInput.value)
+    .then((res) => {
+      profileImage.src = res.avatar;
       closePopup(photoEditPopup);
     })
     .catch((err) => {
