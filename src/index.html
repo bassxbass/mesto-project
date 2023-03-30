@@ -13,7 +13,7 @@
       <img src="<%=require('./images/logo.svg')%>" alt="Лого" class="header__logo"/>
     </header>
 
-    <main>
+    <main class="content">
       <section class="profile">
         <div class="profile__avatar_position_hover">
           <img
@@ -47,7 +47,7 @@
     </footer>
 
     <div class="popup popup_type_edit">
-      <div class="container">
+      <div class="container" id="popup_type_edit-container">
         <button
           class="container__close-button container__close-button_type_edit"
           type="button"
@@ -88,7 +88,7 @@
     </div>
 
     <div class="popup popup_type_add">
-      <div class="container">
+      <div class="container" id="popup_type_add-container">
         <button
           class="container__close-button container__close-button_type_add"
           type="button"
@@ -123,7 +123,7 @@
     </div>
 
     <div class="popup popup_type_photo popup_black">
-      <div class="card-opened">
+      <div class="card-opened" id="popup_type_photo-container">
         <button
           class="container__close-button container__close-button_type_photo"
           type="button"
@@ -134,7 +134,7 @@
     </div>
 
     <div class="popup popup_type_profile-photo">
-      <div class="container">
+      <div class="container" id="popup_type_profile-photo-container">
         <button
           class="container__close-button container__close-button_type_profile-photo"
           aria-label="Закрыть"
@@ -176,7 +176,9 @@
 
     <template class="card__template">
       <div class="card">
+
         <img src="<%=require('./images/trash.png')%>" alt="Удалить" class="card__delete"/>
+        
         <img
           src=""
           alt=""
@@ -184,7 +186,7 @@
         />
         <div class="card__info">
           <h2 class="card__name"></h2>
-          <div>
+          <div class="card__like-container">
             <button
               class="card__like"
               type="button"

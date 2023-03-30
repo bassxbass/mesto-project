@@ -1,90 +1,106 @@
-export function getRes(res) {
-  if (res.ok) {
-    return res.json();
+
+// const config = {
+//   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-20',
+//   headers: {
+//     authorization: "22162963-fa24-4ef5-ad47-93b0e908a5f5",
+//     "Content-Type": "application/json",
+//   },
+// };
+
+export default class Api {
+  constructor({ baseUrl, headers }) {
+      this.baseUrl = baseUrl,
+      this.headers = headers
   }
 
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
+  // Метод для обработки ответа от сервера
+  _getRes = (res) => {
+      if (res.ok) {
+          return res.json();
+      }
 
-const config = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-20',
-  headers: {
-    authorization: "22162963-fa24-4ef5-ad47-93b0e908a5f5",
-    "Content-Type": "application/json",
-  },
-};
+      return Promise.reject(`Ошибка: ${res.status}`);
+  }
 
-export function getProfileInfo() {
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  }).then(getRes);
-}
+  // Метод для получения списка карточек с сервера
+  getCards = () => {
+      return fetch(`${this.baseUrl}/cards`, {
+          method: 'GET',
+          headers: this.headers
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function getCards() {
-  return fetch(`${config.baseUrl}/cards`, {
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  }).then(getRes);
-}
+  // Метод для получения информации о пользователе с сервера
+  getProfileInfo = () => {
+      return fetch(`${this.baseUrl}/users/me`, {
+          headers: this.headers
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function updateProfileInfo(name, job) {
-  return fetch(`${config.baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      about: job,
-    }),
-  }).then(getRes);
-}
+  // Метод для добавления карточки на сервер
+  appendCard = (cardName, cardLink) => {
+      return fetch(`${this.baseUrl}/cards`, {
+          method: 'POST',
+          headers: this.headers,
+          body: JSON.stringify({
+              name: cardName,
+              link: cardLink
+          })
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function appendCard(name, link) {
-  return fetch(`${config.baseUrl}/cards`, {
-    method: "POST",
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      link: link,
-    }),
-  }).then(getRes);
-}
+  // Метод для удаления карточки с сервера
+  deleteCard = (cardId) => {
+      return fetch(`${this.baseUrl}/cards/${cardId}`, {
+          method: 'DELETE',
+          headers: this.headers
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function deleteCard(id) {
-  return fetch(`${config.baseUrl}/cards/${id}`, {
-    method: "DELETE",
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  }).then(getRes);
-}
+  // Метод для обновления аватара пользователя на сервере
+  updateProfilePhoto = (newUrl) => {
+      return fetch(`${this.baseUrl}/users/me/avatar`, {
+          method: 'PATCH',
+          headers: this.headers,
+          body: JSON.stringify({
+              avatar: newUrl
+          })
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function putLike(id) {
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
-    method: "PUT",
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  }).then(getRes);
-}
+  // Метод для обновления информации о пользователе на сервере
+  updateProfileInfo = (newName, newAbout) => {
+      return fetch(`${this.baseUrl}/users/me`, {
+          method: 'PATCH',
+          headers: this.headers,
+          body: JSON.stringify({
+              name: newName,
+              about: newAbout
+          })
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function deleteLike(id) {
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
-    method: "DELETE",
-    headers: {
-      authorization: config.headers.authorization,
-    },
-  }).then(getRes);
-}
+  // Метод для отправки лайка карточке на сервер
+  putLike = (cardId) => {
+      return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+          method: 'PUT',
+          headers: this.headers
+      })
+          .then(res => this._getRes(res))
+  }
 
-export function updateProfilePhoto(link) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: link,
-    }),
-  }).then(getRes);
+  // Метод для удаления лайка с карточки на сервере
+  deleteLike = (cardId) => {
+      return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+          method: 'DELETE',
+          headers: this.headers
+      })
+          .then(res => this._getRes(res))
+  }
 }

@@ -45,3 +45,5 @@
 @import url(./blocks/card-opened/__image/card-opened__image.css);
 @import url(./blocks/card-opened/__name/card-opened__name.css);
 @import url(./blocks/card-opened/card-opened.css);
+
+@import url(./blocks/card/__delete/_disabled/card__delete_disabled.css);
