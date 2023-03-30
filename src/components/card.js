@@ -24,27 +24,27 @@ export default class Card {
       (this._delCardHandler = delCardHandler),
       (this._openCardHandler = openCardHandler);
     // Клонирование шаблона карточки и сохранение элементов в свойствах объекта
-    this.post = cardTemplate.querySelector(this.selector).cloneNode(true);
-    this.postImage = this.post.querySelector(".card__image");
-    this.cardTrash = this.post.querySelector(".card__delete");
-    this.buttonLike = this.post.querySelector(".card__like");
-    this.likeCount = this.post.querySelector(".card__like-number");
-    this.likeContainer = this.post.querySelector(".card__like-container");
+    this.card = cardTemplate.querySelector(this.selector).cloneNode(true);
+    this.cardImage = this.card.querySelector(".card__image");
+    this.cardTrash = this.card.querySelector(".card__delete");
+    this.cardHeart = this.card.querySelector(".card__like");
+    this.cardLikeNumber = this.card.querySelector(".card__like-number");
+    this.cardLikeContainer = this.card.querySelector(".card__like-container");
   }
 
 
   // Добавление данных карточки в DOM
-  _addDomCardInfo() {
-    this.postImage.src = this.link;
-    this.post.querySelector(".card__name").textContent = this.name;
-    this.postImage.alt = this.name;
+  _addCardInfo() {
+    this.cardImage.src = this.link;
+    this.card.querySelector(".card__name").textContent = this.name;
+    this.cardImage.alt = this.name;
   }
 
   // Проверка, стоял ли уже наш лайк у карточки
-  _checkActiveLike() {
+  _cardHeart() {
     this.likes.forEach((element) => {
       if (this.userID == element._id) {
-        this.buttonLike.classList.add("card__like_active");
+        this.cardHeart.classList.add("card__like_active");
       }
     });
   }
@@ -57,49 +57,49 @@ export default class Card {
   }
 
   // Изменение видимости количества лайков карточки в DOM
-  _changeLikeVisibility() {
+  _cardLikeVisibility() {
     if (this.likes.length !== 0) {
-      this.likeCount.textContent = this.likes.length;
+      this.cardLikeNumber.textContent = this.likes.length;
     } else {
-      this.likeCount.style.display = "none";
+      this.cardLikeNumber.style.display = "none";
     }
   }
 
   // создание новой карточки
-  createNewPost() {
+  createNewCard() {
     // Изменяем отображение количества лайков в DOM, в зависимости от их наличия
-    this._changeLikeVisibility();
+    this._cardLikeVisibility();
 
     // функция проверки лайка
-    this._checkActiveLike();
+    this._cardHeart();
 
     // Вызываем функцию для проверки, является ли текущий пользователь владельцем карточки
     this._checkCardOwner();
 
     // Добавляем информацию о карточке в DOM
-    this._addDomCardInfo();
+    this._addCardInfo();
 
     // Добавляем слушатель события на кнопку лайка, чтобы пользователь мог поставить или убрать лайк
-    this.buttonLike.addEventListener("click", (evt) => {
+    this.cardHeart.addEventListener("click", (evt) => {
       if (evt.target.classList.contains("card__like_active")) {
         this._delLikeHandler(
           this.cardId,
           evt,
-          this.likeCount,
-          this.likeContainer
+          this.cardLikeNumber,
+          this.cardLikeContainer
         );
       } else {
         this._putLikeHandler(
           this.cardId,
           evt,
-          this.likeCount,
-          this.likeContainer
+          this.cardLikeNumber,
+          this.cardLikeContainer
         );
       }
     });
 
     // Добавляем слушатель события на фотографию карточки, чтобы пользователь мог увеличить ее в попапе
-    this.postImage.addEventListener("click", () => {
+    this.cardImage.addEventListener("click", () => {
       this._openCardHandler(this.name, this.link);
     });
 
@@ -109,6 +109,6 @@ export default class Card {
     });
 
     // Возвращаем готовую карточку
-    return this.post;
+    return this.card;
   }
 }

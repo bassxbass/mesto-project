@@ -7,15 +7,15 @@ import {
     postNameInput,
     postLinkInput,
     profileName,
-    profileAbout,
+    profileJob,
     userAvatar,
     avatarLinkInput,
     popupAddPost,
     popupEditor,
     popupAvatar,
-    popupEditProfileOpenButton,
-    popupAvatarOpenButton,
-    popupAddPostOpenButton,
+    editButton,
+    photoEdit,
+    addButton,
 } from "./components/constants.js"
 
 import Api from "./components/api.js"
@@ -28,6 +28,8 @@ import PopupWithImage from "./components/PopupWithImage.js"
 
 let userID
 
+
+
 // создание профиля нашего пользователя
 const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-20',
@@ -37,9 +39,9 @@ const api = new Api({
     }
 });
 
-const userInfo = new UserInfo(profileName, profileAbout, userAvatar, api);
-const popupImage = new PopupWithImage("popup_type_photo-container");
 const section = new Section({ renderer: render }, cardSection)
+const userInfo = new UserInfo(profileName, profileJob, userAvatar, api);
+const imagePopup = new PopupWithImage("popup_type_photo-container");
 
 
 // Функция для добавления количества лайков на страницу в виде текста
@@ -112,11 +114,11 @@ function createCard(item) {
         putLikeHandler,
         delCardHandler,
         openCardHandler: (name, link) => {
-            popupImage.open(name, link)
+            imagePopup.openPopup(name, link)
 
         }
     })
-  return cardElement.createNewPost() // Создание карточки и возврат ее элемента
+  return cardElement.createNewCard() // Создание карточки и возврат ее элемента
 }
 
 // Селекторы попапов
@@ -139,7 +141,7 @@ Promise.all([userInfo.getUserInfo(), api.getCards()])
   .then((data) => {
     // Редактирование информации пользователя на странице
     editNameInput.textContent = data[0].name;
-    editAboutInput.textContent = data[0].about;
+    editAboutInput.textContent = data[0].job;
     avatarLinkInput.value = "";
 
     // Установка информации о пользователе в объекте userInfo и получение ID пользователя
@@ -179,8 +181,8 @@ function addCardHandler(obj) {
     api.appendCard(postNameInput.value, postLinkInput.value)
         .then((res) => {
             section.prependItem(createCard(res))
-            popupPostForm.close()
-            popupPostFormValidate.resetForm()
+            addPopup.closePopup()
+            popupPostValidate.resetForm()
         })
         .catch((error) => {
             console.log(error);
@@ -201,7 +203,7 @@ function editProfileHandler() {
     const editAbout = editAboutInput.value;
     userInfo.setUserInfo({name: editName, about: editAbout})
     .then(() => {
-        popupEditForm.close()
+        popupEditForm.closePopup()
     })
     .catch((error) => {
         console.log(error);
@@ -221,8 +223,8 @@ function patchAvatarHandler() {
     // Установка новой аватарки пользователя через API
     userInfo.setUserAvatar(avatarLinkInput.value)
     .then(() => {
-        popupAvatarForm.close()
-        popupAvatarFormValidate.resetForm()
+        popupAvatarForm.closePopup()
+        popupAvatarValidate.resetForm()
     })
     .catch((error) => {
         console.log(error);
@@ -232,39 +234,41 @@ function patchAvatarHandler() {
     });
 }
 
-const popupEditForm = new PopupWithForm("popup_type_edit-container", editProfileHandler); // создаем попап для редактирования профиля
-const popupAvatarForm = new PopupWithForm("popup_type_profile-photo-container", patchAvatarHandler); // создаем попап для изменения аватара
-const popupPostForm = new PopupWithForm("popup_type_add-container", addCardHandler); // создаем попап для добавления карточки
+const editPopup = new PopupWithForm("popup_type_edit-container", editProfileHandler); // создаем попап для редактирования профиля
+const photoEditPopup = new PopupWithForm("popup_type_profile-photo-container", patchAvatarHandler); // создаем попап для изменения аватара
+const addPopup = new PopupWithForm("popup_type_add-container", addCardHandler); // создаем попап для добавления карточки
 
-const popupEditFormValidate = new FormValidator(fullForm, popupEditor.querySelector(fullForm.formSelector)) // создаем валидатор формы редактирования профиля
-const popupAvatarFormValidate = new FormValidator(fullForm, popupAvatar.querySelector(fullForm.formSelector)) // создаем валидатор формы изменения аватара
-const popupPostFormValidate = new FormValidator(fullForm, popupAddPost.querySelector(fullForm.formSelector)) // создаем валидатор формы добавления карточки
-popupEditFormValidate.enableValidation() // включаем валидацию для формы редактирования профиля
-popupAvatarFormValidate.enableValidation() // включаем валидацию для формы изменения аватара
-popupPostFormValidate.enableValidation() // включаем валидацию для формы добавления карточки
+const popupAvatarValidate = new FormValidator(fullForm, popupAvatar.querySelector(fullForm.formSelector)) // создаем валидатор формы изменения аватара
+const popupPostValidate = new FormValidator(fullForm, popupAddPost.querySelector(fullForm.formSelector)) // создаем валидатор формы добавления карточки
+const popupEditValidate = new FormValidator(fullForm, popupEditor.querySelector(fullForm.formSelector)) // создаем валидатор формы редактирования профиля
 
 
-popupAddPostOpenButton.addEventListener("click", () => { // добавляем слушатель для кнопки открытия формы добавления карточки
-    popupPostForm.open() // открываем форму
-    popupPostFormValidate.resetForm() // сбрасываем валидацию
+popupEditValidate.enableValidation() // включаем валидацию для формы редактирования профиля
+popupAvatarValidate.enableValidation() // включаем валидацию для формы изменения аватара
+popupPostValidate.enableValidation() // включаем валидацию для формы добавления карточки
+
+
+addButton.addEventListener("click", () => { // добавляем слушатель для кнопки открытия формы добавления карточки
+    addPopup.openPopup() // открываем форму
+    popupPostValidate.resetForm() // сбрасываем валидацию
 })
 
-popupEditProfileOpenButton.addEventListener("click", () => { // добавляем слушатель для кнопки открытия формы редактирования профиля
-    popupEditForm.open() // открываем форму
+editButton.addEventListener("click", () => { // добавляем слушатель для кнопки открытия формы редактирования профиля
+    editPopup.openPopup() // открываем форму
     userInfo.getUserInfo().then(obj => { // получаем информацию о пользователе и устанавливаем ее в поля формы
         editNameInput.value = obj.name
-        editAboutInput.value = obj.about
+        editAboutInput.value = obj.job
     })
-    popupEditFormValidate.resetForm() // сбрасываем валидацию
+    popupEditValidate.resetForm() // сбрасываем валидацию
 })
 
-popupAvatarOpenButton.addEventListener("click", () => { // добавляем слушатель для кнопки открытия формы изменения аватара
-    popupAvatarForm.open() // открываем форму
-    popupAvatarFormValidate.resetForm() // сбрасываем валидацию
+photoEdit.addEventListener("click", () => { // добавляем слушатель для кнопки открытия формы изменения аватара
+    photoEditPopup.openPopup() // открываем форму
+    popupAvatarValidate.resetForm() // сбрасываем валидацию
 })
 
 // Устанавливаем обработчики событий на модальные окна для открытия и закрытия
-popupImage.setEventListeners();
-popupAvatarForm.setEventListeners();
-popupPostForm.setEventListeners();
-popupEditForm.setEventListeners();
+imagePopup.setEventListeners();
+photoEditPopup.setEventListeners();
+editPopup.setEventListeners();
+addPopup.setEventListeners();

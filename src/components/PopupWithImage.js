@@ -8,15 +8,15 @@ export default class PopupWithImage extends Popup {
     this._image = this._popup.querySelector(".card-opened__image");
     this._title = this._popup.querySelector(".card-opened__name");
   }
-  
+
   // Открытие попапа с передачей ссылки и имени изображения
-  open(name, link) {
+  openPopup(name, link) {
     // Заполнение контента попапа изображениями и соответствующими данными
     this._image.src = link;
     this._title.textContent = name;
     this._image.alt = name;
 
     // Вызов метода open родительского класса для открытия попапа
-    super.open();
+    super.openPopup();
   }
 }
